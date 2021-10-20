@@ -1,0 +1,22 @@
+title: Cobalt Strike jump psexec_psh
+description: Detects Cobalt Strike jump psexec_psh behavior
+author: John Wolfram
+date: 2021/10/15
+logsource:
+    category: laterl_movement
+    product: windows
+detection:
+    selection_id:
+        EventID: 7045
+    selection1:
+      ImagePath|contains|all: 
+          - 'COMSPEC'
+          - 'nop'
+          - 'hidden'
+          - 'JABz'
+    condition: selection_id and selection1
+falsepositives:
+    - Red Team
+level: High
+tags:
+    - attack.lateral_movement
