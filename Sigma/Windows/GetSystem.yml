@@ -1,0 +1,22 @@
+title: Cobalt Strike GetSystem
+description: Detects Cobalt Strike GetSystem behavior
+author: John Wolfram
+date: 2021/10/15
+logsource:
+    category: privilege_escalation
+    product: windows
+detection:
+    selection_id:
+        EventID: 7045
+    selection1:
+      ImagePath|contains|all: 
+          - 'cmd'
+          - '/c'
+          - 'echo'
+          - '\pipe\'
+    condition: selection_id and selection1
+falsepositives:
+    - Red Team
+level: High
+tags:
+    - attack.privilege_escalation
